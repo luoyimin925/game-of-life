@@ -1,1 +1,2 @@
-this is master.txt file.
+This is master.txt file.
+It belongs to master branch.
