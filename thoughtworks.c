@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
-#define maxLine 10
+#define maxLine 15
 int readfile(int *pArr, int a, int b)
 {
 	int i,j;
@@ -24,6 +24,80 @@ int readfile(int *pArr, int a, int b)
     return 0;
 }
 
+void out(int x[maxLine][maxLine])
+{
+	int i,j;
+	for (i=0;i<maxLine;i++)
+    {
+        for (j=0;j<maxLine;j++)
+        {
+            if (x[i][j]==0) printf("○");
+            else printf("■");
+        }
+        printf("\n");
+    }
+}
+
+void copy(int x[maxLine][maxLine],int y[maxLine][maxLine])
+{
+	int i,j;
+	for (i=0;i<maxLine;i++)
+    {
+        for (j=0;j<maxLine;j++)
+        {
+            x[i][j]=y[i][j];
+        }
+    }
+}
+
+int speedControl(char x)
+{
+	int speed=0;
+	char mark;
+	switch (x)
+    {
+    	case '1':speed=1000;break;
+    	case '2':speed=750;break;
+    	case '3':speed=500;break;
+    	case '4':speed=250;break;
+    	case '5':speed=50;break;
+    	case 27:speed=0;break;
+	}
+	return speed;
+}
+
+void transform(int x[maxLine][maxLine],int y[maxLine][maxLine])
+{
+	int i,j,count=0;
+	for (i=0;i<maxLine;i++)//非边界情况 
+    {
+        for (j=0;j<maxLine;j++)
+        {
+            if ((i-1>=0)&&(j-1>=0)&&x[i-1][j-1]==1)count++;
+            if ((i-1>=0)&&x[i-1][j]==1)count++;
+            if ((i-1>=0)&&(j+1<maxLine)&&x[i-1][j+1]==1)count++;
+            if ((j-1>=0)&&x[i][j-1]==1)count++;
+            if ((j+1<maxLine)&&x[i][j+1]==1)count++;
+            if ((i+1<maxLine)&&(j-1>=0)&&x[i+1][j-1]==1)count++;
+            if ((i+1<maxLine)&&x[i+1][j]==1)count++;
+            if ((i+1<maxLine)&&(j+1<maxLine)&&x[i+1][j+1]==1)count++;
+        	if (count==2)
+        	{
+				y[i][j]=x[i][j]; 
+        	}
+        	else if (count==3)
+        	{
+            	y[i][j]=1;
+        	}
+        	else
+        	{
+            	y[i][j]=0;
+        	}
+        	count=0;
+        } 
+    }
+}
+
 int main()
 {
 	int i,j,count,speed=500;
@@ -32,89 +106,22 @@ int main()
     int b[maxLine][maxLine]={0};
 
     readfile(&a, maxLine, maxLine);
-    
-    /*a[3][3]=1;
-    a[3][4]=1;
-    a[3][5]=1;
-    a[4][4]=1;
-    a[5][4]=1;*/
-    
-    for (i=0;i<10;i++)
-    {
-        for (j=0;j<10;j++)
-        {
-            b[i][j]=a[i][j];
-        }
-    }
-
-    for (i=0;i<10;i++)
-    {
-        for (j=0;j<10;j++)
-        {
-            if (a[i][j]==0) printf("○");
-            else printf("■");
-        }
-        printf("\n");
-    }
-
+    copy(b,a);
+    out(a);
     while(1)
     {
     	Sleep(speed);
-        if (1)
-        {
-            for (i=0;i<maxLine;i++)//非边界情况 
-            {
-                for (j=0;j<maxLine;j++)
-                {
-                    if ((i-1>=0)&&(j-1>=0)&&a[i-1][j-1]==1)count++;
-                    if ((i-1>=0)&&a[i-1][j]==1)count++;
-                    if ((i-1>=0)&&(j+1<maxLine)&&a[i-1][j+1]==1)count++;
-                    if ((j-1>=0)&&a[i][j-1]==1)count++;
-                    if ((j+1<maxLine)&&a[i][j+1]==1)count++;
-                    if ((i+1<maxLine)&&(j-1>=0)&&a[i+1][j-1]==1)count++;
-                    if ((i+1<maxLine)&&a[i+1][j]==1)count++;
-                    if ((i+1<maxLine)&&(j+1<maxLine)&&a[i+1][j+1]==1)count++;
-                	if (count==2)
-                	{
-						b[i][j]=a[i][j]; 
-                	}
-                	else if (count==3)
-                	{
-                    	b[i][j]=1;
-                	}
-                	else
-                	{
-                    	b[i][j]=0;
-                	}
-                	count=0;
-                } 
-            }
-            system("cls");
-            for (i=0;i<10;i++)
-            {
-                for (j=0;j<10;j++)
-                {
-                    a[i][j]=b[i][j];
-                    if (b[i][j]==1) printf("■");
-                    else printf("○");
-                }
-                printf("\n");
-            }
-            while (kbhit())
-			{
-		        char ch = getch();
-		        switch (ch)
-		        {
-		        	case ' ':system("pause");break;
-		        	case '1':speed=1000;break;
-		        	case '2':speed=750;break;
-		        	case '3':speed=500;break;
-		        	case '4':speed=250;break;
-		        	case '5':speed=50;break;
-		        	case 27:return 0;
-				}
-    		}
-        }
+        transform(a,b);
+        system("cls");
+        copy(a,b);
+        out(b);
+        while (kbhit())
+		{
+	        char ch = getch();
+	        if (ch==' ') system("pause");
+	        else if (speedControl(ch)) speed=speedControl(ch);
+			else return 0;
+		}
     }
     return 0;
 }
