@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
+#include <conio.h>
 #define maxLine 10
 int readfile(int *pArr, int a, int b)
 {
@@ -25,7 +26,7 @@ int readfile(int *pArr, int a, int b)
 
 int main()
 {
-	int i,j,count;
+	int i,j,count,speed=500;
     char judge;
     int a[maxLine][maxLine]={0};
     int b[maxLine][maxLine]={0};
@@ -58,7 +59,7 @@ int main()
 
     while(1)
     {
-    	Sleep(500);
+    	Sleep(speed);
         if (1)
         {
             for (i=0;i<maxLine;i++)//非边界情况 
@@ -99,10 +100,20 @@ int main()
                 }
                 printf("\n");
             }
-        }
-        else 
-        {
-            break;
+            while (kbhit())
+			{
+		        char ch = getch();
+		        switch (ch)
+		        {
+		        	case ' ':system("pause");break;
+		        	case '1':speed=1000;break;
+		        	case '2':speed=750;break;
+		        	case '3':speed=500;break;
+		        	case '4':speed=250;break;
+		        	case '5':speed=50;break;
+		        	case 27:return 0;
+				}
+    		}
         }
     }
     return 0;
