@@ -1,3 +1,0 @@
-C:/Users/45401/thoughtwork/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/45401/thoughtwork/cmake-build-debug/CMakeFiles/untitled.dir
-C:/Users/45401/thoughtwork/cmake-build-debug/CMakeFiles/rebuild_cache.dir

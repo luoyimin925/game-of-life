@@ -1,6 +1,0 @@
-cmake-build-debug/
-.idea/
-cmake-build-release/
-conanbuildinfo.cmake
-conaninfo.txt
-conanbuildinfo.txt
