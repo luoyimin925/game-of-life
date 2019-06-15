@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 #define maxLine 10
 int readfile(int *pArr, int a, int b)
 {
@@ -49,16 +50,16 @@ int main()
     {
         for (j=0;j<10;j++)
         {
-            if (a[i][j]==0) printf("0");
-            else printf("*");
+            if (a[i][j]==0) printf("○");
+            else printf("■");
         }
         printf("\n");
     }
 
     while(1)
     {
-        scanf("%c",&judge);
-        if (judge=='y')
+    	Sleep(500);
+        if (1)
         {
             for (i=0;i<maxLine;i++)//非边界情况 
             {
@@ -87,88 +88,19 @@ int main()
                 	count=0;
                 } 
             }
-            /*
-            if (a[0][1]==1) count++;//左上角的情况 
-            if (a[1][0]==1) count++;
-            if (a[1][1]==1) count++;
-            if (count==2)
-        	{
-				b[0][0]=a[0][0]; 
-        	}
-        	else if (count==3)
-        	{
-            	b[0][0]=1;
-        	}
-        	else
-        	{
-            	b[0][0]=0;
-        	}
-        	count=0;
-        	
-        	if (a[0][maxLine-2]==1) count++;//右上角的情况 
-            if (a[1][maxLine-2]==1) count++;
-            if (a[1][maxLine-1]==1) count++;
-            if (count==2)
-        	{
-				b[0][maxLine-1]=a[0][maxLine-1]; 
-        	}
-        	else if (count==3)
-        	{
-            	b[0][maxLine-1]=1;
-        	}
-        	else
-        	{
-            	b[0][maxLine-1]=0;
-        	}
-        	count=0;
-        	
-        	if (a[maxLine-2][0]==1) count++;//左下角的情况 
-            if (a[maxLine-2][1]==1) count++;
-            if (a[maxLine-1][1]==1) count++;
-            if (count==2)
-        	{
-				b[maxLine-1][0]=a[maxLine-1][0]; 
-        	}
-        	else if (count==3)
-        	{
-            	b[maxLine-1][0]=1;
-        	}
-        	else
-        	{
-            	b[maxLine-1][0]=0;
-        	}
-        	count=0;
-        	
-        	if (a[maxLine-2][maxLine-2]==1) count++;//右下角的情况 
-            if (a[maxLine-2][maxLine-1]==1) count++;
-            if (a[maxLine-1][maxLine-2]==1) count++;
-            if (count==2)
-        	{
-				b[maxLine-1][maxLine-1]=a[maxLine-1][maxLine-1];
-        	}
-        	else if (count==3)
-        	{
-            	b[maxLine-1][maxLine-1]=1;
-        	}
-        	else
-        	{
-            	b[maxLine-1][maxLine-1]=0;
-        	}
-        	count=0;*/
-        	
-            
+            system("cls");
             for (i=0;i<10;i++)
             {
                 for (j=0;j<10;j++)
                 {
                     a[i][j]=b[i][j];
-                    if (b[i][j]==1) printf("*");
-                    else printf("%d",b[i][j]);
+                    if (b[i][j]==1) printf("■");
+                    else printf("○");
                 }
                 printf("\n");
             }
         }
-        else if (judge=='n')
+        else 
         {
             break;
         }
