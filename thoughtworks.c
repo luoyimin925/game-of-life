@@ -2,10 +2,10 @@
 #include <windows.h>
 #include <conio.h>
 #define maxLine 15
-int readfile(int *pArr, int a, int b)
+int readfile(int *pArr, int a, int b)//将文件内容存入数组 
 {
 	int i,j;
-	FILE* fp=fopen("xxx.txt","r"); //打开文件
+	FILE* fp=fopen("input.txt","r"); //打开文件
 	if(fp==NULL)
 	{
 	    printf("无文件");
@@ -24,7 +24,7 @@ int readfile(int *pArr, int a, int b)
     return 0;
 }
 
-void out(int x[maxLine][maxLine])
+void out(int x[maxLine][maxLine])//输出图形 
 {
 	int i,j;
 	for (i=0;i<maxLine;i++)
@@ -38,7 +38,7 @@ void out(int x[maxLine][maxLine])
     }
 }
 
-void copy(int x[maxLine][maxLine],int y[maxLine][maxLine])
+void copy(int x[maxLine][maxLine],int y[maxLine][maxLine])//将y数组的值赋给x 
 {
 	int i,j;
 	for (i=0;i<maxLine;i++)
@@ -50,7 +50,7 @@ void copy(int x[maxLine][maxLine],int y[maxLine][maxLine])
     }
 }
 
-int speedControl(char x)
+int speedControl(char x)//控制图形刷新速度 
 {
 	int speed=0;
 	char mark;
@@ -66,7 +66,7 @@ int speedControl(char x)
 	return speed;
 }
 
-void transform(int x[maxLine][maxLine],int y[maxLine][maxLine])
+void transform(int x[maxLine][maxLine],int y[maxLine][maxLine])//核心内容 
 {
 	int i,j,count=0;
 	for (i=0;i<maxLine;i++)//非边界情况 
@@ -112,8 +112,8 @@ int main()
     {
     	Sleep(speed);
         transform(a,b);
-        system("cls");
         copy(a,b);
+        system("cls");
         out(b);
         while (kbhit())
 		{
