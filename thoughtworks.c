@@ -49,11 +49,17 @@ int main(void)
         arraycopy(&a[0][0], &b[0][0], maxLine, maxLine);
         system("cls");
         outputshape(&b[0][0], maxLine, maxLine);
+        printf("当前状态：运行中\t当前速度：%d\n", speed);
         while (kbhit())
 		{
 	        char ch = getch();
 	        if (ch==' ')
+	        {
+				system("cls");
+	        	outputshape(&b[0][0], maxLine, maxLine);
+        		printf("当前状态：暂停中\t刷新间隔：%d\n", speed);
 				system("pause");
+			} 
 	        else if
 				(speedControl(ch)) speed = speedControl(ch);
 			else
