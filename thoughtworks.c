@@ -40,9 +40,11 @@ int main(void)
 
     if(readfile(&a[0][0], maxLine, maxLine))
     	return 0;
-    arraycopy(&b[0][0], &a[0][0], maxLine, maxLine);
+    
+	arraycopy(&b[0][0], &a[0][0], maxLine, maxLine);
     outputshape(&a[0][0], maxLine, maxLine);
-    while(1)
+    
+	while(1)
     {
     	Sleep(speed);
         checklife(&a[0][0], &b[0][0], maxLine, maxLine);
@@ -66,5 +68,6 @@ int main(void)
 				return 0;
 		}
     }
+    
     return 0;
 }

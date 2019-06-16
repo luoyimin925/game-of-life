@@ -1,6 +1,6 @@
 # include <stdio.h>
 
-void arraycopy(int A[], int B[], int row, int col)//将y数组的值赋给x 
+void arraycopy(int A[], int B[], int row, int col)//将B数组的值赋给A
 {
 	int i, j;
 	

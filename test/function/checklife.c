@@ -1,11 +1,11 @@
 # include <stdio.h>
 
-void checklife(int A[], int B[], int row, int col)//核心内容 
+void checklife(int A[], int B[], int row, int col)
 {
 	int i, j;
 	int count = 0;
 	
-	for(i = 0; i < row; ++i)//非边界情况 
+	for(i = 0; i < row; ++i)
 	{
 		for(j = 0; j < col; ++j)
 		{
