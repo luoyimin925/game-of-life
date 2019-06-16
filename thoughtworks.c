@@ -1,54 +1,9 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#include "function.c"
+
 #define maxLine 15
-int readfile(int *pArr, int a, int b)//将文件内容存入数组 
-{
-	int i,j;
-	FILE* fp=fopen("input.txt","r"); //打开文件
-	if(fp==NULL)
-	{
-	    printf("无文件");
-	    return 0;
-	}
-	for(i=0;i<a;i++)
-	{
-	    for(j=0;j<b;j++)
-	    {
-	        fscanf(fp, "%d", pArr+b*i+j);//每次读取一个数，fscanf函数遇到空格或者换行结束
-		}
-	    fscanf(fp,"\n");
-	}
-	fclose(fp);
-	
-    return 0;
-}
-
-void out(int x[maxLine][maxLine])//输出图形 
-{
-	int i,j;
-	for (i=0;i<maxLine;i++)
-    {
-        for (j=0;j<maxLine;j++)
-        {
-            if (x[i][j]==0) printf("○");
-            else printf("■");
-        }
-        printf("\n");
-    }
-}
-
-void copy(int x[maxLine][maxLine],int y[maxLine][maxLine])//将y数组的值赋给x 
-{
-	int i,j;
-	for (i=0;i<maxLine;i++)
-    {
-        for (j=0;j<maxLine;j++)
-        {
-            x[i][j]=y[i][j];
-        }
-    }
-}
 
 int speedControl(char x)//控制图形刷新速度 
 {
@@ -66,38 +21,6 @@ int speedControl(char x)//控制图形刷新速度
 	return speed;
 }
 
-void transform(int x[maxLine][maxLine],int y[maxLine][maxLine])//核心内容 
-{
-	int i,j,count=0;
-	for (i=0;i<maxLine;i++)//非边界情况 
-    {
-        for (j=0;j<maxLine;j++)
-        {
-            if ((i-1>=0)&&(j-1>=0)&&x[i-1][j-1]==1)count++;
-            if ((i-1>=0)&&x[i-1][j]==1)count++;
-            if ((i-1>=0)&&(j+1<maxLine)&&x[i-1][j+1]==1)count++;
-            if ((j-1>=0)&&x[i][j-1]==1)count++;
-            if ((j+1<maxLine)&&x[i][j+1]==1)count++;
-            if ((i+1<maxLine)&&(j-1>=0)&&x[i+1][j-1]==1)count++;
-            if ((i+1<maxLine)&&x[i+1][j]==1)count++;
-            if ((i+1<maxLine)&&(j+1<maxLine)&&x[i+1][j+1]==1)count++;
-        	if (count==2)
-        	{
-				y[i][j]=x[i][j]; 
-        	}
-        	else if (count==3)
-        	{
-            	y[i][j]=1;
-        	}
-        	else
-        	{
-            	y[i][j]=0;
-        	}
-        	count=0;
-        } 
-    }
-}
-
 int main()
 {
 	int i,j,count,speed=500;
@@ -105,16 +28,16 @@ int main()
     int a[maxLine][maxLine]={0};
     int b[maxLine][maxLine]={0};
 
-    readfile(&a, maxLine, maxLine);
-    copy(b,a);
-    out(a);
+    readfile(&a[0][0], maxLine, maxLine);
+    arraycopy(&b[0][0],&a[0][0], maxLine, maxLine);
+    outputshape(&a[0][0], maxLine, maxLine);
     while(1)
     {
     	Sleep(speed);
-        transform(a,b);
-        copy(a,b);
+        checklife(&a[0][0],&b[0][0], maxLine, maxLine);
+        arraycopy(&a[0][0],&b[0][0], maxLine, maxLine);
         system("cls");
-        out(b);
+        outputshape(&b[0][0], maxLine, maxLine);
         while (kbhit())
 		{
 	        char ch = getch();
