@@ -1,6 +1,6 @@
 # include <stdio.h>
 
-void readfile(int A[], int row, int col)//将文件内容存入数组 
+int readfile(int A[], int row, int col)//将文件内容存入数组 
 {
 	int i, j;
 	
@@ -8,7 +8,7 @@ void readfile(int A[], int row, int col)//将文件内容存入数组
 	if(fp == NULL)
 	{
 		printf("无文件");
-		return;
+		return 1;
 	}
 	for(i = 0; i < row; ++i)
 	{
@@ -20,5 +20,5 @@ void readfile(int A[], int row, int col)//将文件内容存入数组
 	}
 	fclose(fp);
 	
-	return;
+	return 0;
 }

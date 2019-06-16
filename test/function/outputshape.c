@@ -11,7 +11,7 @@ void outputshape(int A[], int row, int col)//Êä³öÍ¼ÐÎ
 			if(*(A + col*i + j) == 0)
 				printf("¡ð");
 			else
-				printf("¡ö");
+				printf("¡ï");
 		}
 		printf("\n");
 	}
